@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<link rel='stylesheet' href='/stylesheets/style.css' />
+</head>
+<title>Histogram</title>
+<body>
+	<h1 style = "color:orange;"><center>Histogram</center></h1>
+	<form action = "/logout" method = "post">
+		<center><button type = "submit" id = "logout">Logout</button></center>
+	</form>
+	<% var allGrades = []%>
+	<% var histo = ["A+|", "A |", "A-|", "B+|", "B |", "B-|", "C+|", "C |", "C-|", "D |", "F |"]%>
+
+	<% const dict = {}; %>
+	<% var min = Number.MAX_VALUE;%>
+	<% const maxRange = 11;%>
+
+	<% var quiz = 0;%>
+	<% var midterm = 0;%>
+	<% var final = 0;%>
+	<% var total = 0;%>
+	<% for (var i = 0; i < object.length; i++) { %>
+	
+		<% var keys = Object.keys(object[i]) %>
+
+		<% if (object[i].studentID === "total" ) {%>
+			<% quiz = object[i].quiz %>
+			<% midterm = object[i].midterm %>
+			<% final = object[i].final %>
+		<% } %>
+
+	<% } %>
+
+	<% for (var i = 0; i < object.length; i++) { %>
+		<% total = 0%>
+		<% if (object[i].studentID != "total" ) {%>
+			<% quizResult = (quiz/100) * object[i].quiz %>
+			<% midtermResult = (midterm/100) * object[i].midterm %>
+			<% finalResult = (final/100) * object[i].final %>
+
+			<% total = quizResult + midtermResult + finalResult%>
+
+			<% allGrades.push(total)%>
+		<% } %>
+	<% } %>
+	<% for (var i = 0; i < histo.length; i++) {%><br>
+		<% for (var j = 0; j < allGrades.length; j++) {%>
+			<% if ((allGrades[j] >= 95)) {%>
+				<% histo[0] = histo[0].concat(" O")%>	
+			<%}%>
+			<% if ((allGrades[j] >= 90) && (allGrades[j] < 95)) {%>
+				<% histo[1] = histo[1].concat(" O")%>	
+			<%}%>
+			<% if ((allGrades[j] >= 85) && (allGrades[j] < 90)) {%>
+				<% histo[2] = histo[2].concat(" O")%>	
+			<%}%>
+			<% if ((allGrades[j] >= 80) && (allGrades[j] < 85)) {%>
+				<% histo[3] = histo[3].concat(" O")%>	
+			<%}%>
+			<% if ((allGrades[j] >= 75) && (allGrades[j] < 80)) {%>
+				<% histo[4] = histo[4].concat(" O")%>	
+			<%}%>
+			<% if ((allGrades[j] >= 70) && (allGrades[j] < 75)) {%>
+				<% histo[5] = histo[5].concat(" O")%>	
+			<%}%>
+			<% if ((allGrades[j] >= 65) && (allGrades[j] < 70)) {%>
+				<% histo[6] = histo[6].concat(" O")%>	
+			<%}%>
+			<% if ((allGrades[j] >= 60) && (allGrades[j] < 65)) {%>
+				<% histo[7] = histo[7].concat(" O")%>	
+			<%}%>
+			<% if ((allGrades[j] >= 55) && (allGrades[j] < 60)) {%>
+				<% histo[8] = histo[8].concat(" O")%>	
+			<%}%>
+			<% if ((allGrades[j] >= 50) && (allGrades[j] < 55)) {%>
+				<% histo[9] = histo[9].concat(" O")%>	
+			<%}%>
+			<% if ((allGrades[j] < 50)) {%>
+				<% histo[10] = histo[10].concat(" O")%>	
+			<%}%>
+			
+		<%}%>
+		<% break%>
+
+	<%}%>
+	<br>
+	<div id = "outermost">
+		<div id = "formbox">
+	<%=histo[0]%><br><br>
+	<%=histo[1]%><br><br>
+	<%=histo[2]%><br><br>
+	<%=histo[3]%><br><br>
+	<%=histo[4]%><br><br>
+	<%=histo[5]%><br><br>
+	<%=histo[6]%><br><br>
+	<%=histo[7]%><br><br>
+	<%=histo[8]%><br><br>
+	<%=histo[9]%><br><br>
+	<%=histo[10]%><br><br>
+	</div></div>
+	<div id = "outermost">
+		<div id = "formbox">
+	<%="All Student Grades"%><br>
+	<% for (var i = 0; i < object.length; i++) { %>
+		<% total = 0%>
+		<% if (object[i].studentID != "total") {%><br>
+		Student: <%=object[i].studentID%><br>
+		<% quizResult = (quiz/100) * object[i].quiz %>
+		<% midtermResult = (midterm/100) * object[i].midterm %>
+		<% finalResult = (final/100) * object[i].final %>
+			Quiz: <%= quizResult.toFixed(2) %><br>
+			Midterm: <%= midtermResult.toFixed(2) %><br>
+			Final: <%= finalResult.toFixed(2)%><br>
+			Total: <%= total = (quizResult + midtermResult + finalResult).toFixed(2)%><br>
+			<% if ((total >= 95)) {%>
+			<%= "Final Grade: A+" %>
+			<%}%>
+			<% if ((total >= 90) && (total < 95)) {%>
+			<%= "Final Grade: A"%>
+			<%}%>
+			<% if ((total >= 85) && (total < 90)) {%>
+			<%= "Final Grade: A-"%>
+			<%}%>
+			<% if ((total >= 80) && (total < 85)) {%>
+			<%= "Final Grade: B+"%>
+			<%}%>
+			<% if ((total >= 75) && (total < 80)) {%>
+			<%= "Final Grade: B"%>
+			<%}%>
+			<% if ((total >= 70) && (total < 75)) {%>
+			<%= "Final Grade: B-"%>
+			<%}%>
+			<% if ((total >= 65) && (total < 70)) {%>
+			<%= "Final Grade: C+"%>
+			<%}%>
+			<% if ((total >= 60) && (total < 65)) {%>
+			<%= "Final Grade: C"%>
+			<%}%>
+			<% if ((total >= 55) && (total < 60)) {%>
+			<%= "Final Grade: C-"%>
+			<%}%>
+			<% if ((total >= 50) && (total < 55)) {%>
+			<%= "Final Grade: D"%>
+			<%}%>
+			<% if ((total < 50)) {%>
+			<%= "Final Grade: F"%>
+			<%}%><br>
+			<%}%>
+		<%}%>
+	</div></div>
+</body>
+</html>

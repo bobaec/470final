@@ -1,0 +1,4 @@
+[ZoneTransfer]
+ZoneId=3
+ReferrerUrl=https://cas.sfu.ca/cas/login?service=https%3a%2f%2fwww.cs.sfu.ca%2fCourseCentral%2f470%2fbobbyc%2fa%2fdata.csv
+HostUrl=https://www2.cs.sfu.ca/CourseCentral/470/bobbyc/a/data.csv

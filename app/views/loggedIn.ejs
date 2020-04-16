@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<style>
+		#display {
+			display: none;
+		}
+	</style>
+	<link rel='stylesheet' href='/stylesheets/style.css' />
+</head>
+<title>Logged in</title>
+<body>
+	<h1 style = "color:orange;">Please select a CSV</h1>
+	<form action = "/saveCSV" method = "post">
+		<label for = "myCSV"></label>
+		<input type= "file" id = "myCSV" name = "myCSV" accept=".csv"><br>
+		<input type = "submit" value = "Submit">
+	</form>
+	<br><br>
+	<div id = 'display'>Please enter a csv that sums to 100</div>
+	<div id = "table"></div> 
+	<form action = "/logout" method = "post">
+		<center><button type = "submit" id = "logout">Logout</button></center>
+	</form>
+</body>
+	<script>
+		function readFile(evt) {
+			var totalValues;
+			var totalSum = 0;
+			var hide = "<div id = 'display'>Please enter a csv that sums to 100</div>"
+			var f = evt.target.files[0];
+			if (f) {
+				var reader = new FileReader();
+				reader.onload = function(e) {
+					var contents = e.target.result;
+					var lines = contents.split('\n'), output = [];
+					for (var i = 0; i < lines.length; i++) {
+						if (lines[i].startsWith("total")) {
+							totalValues = lines[i].split(",");
+							totalValues = totalValues.slice(1);
+							totalValues = totalValues.map(function(x) {
+								return parseInt(x, 10);
+							});
+							for (var check = 0; check < totalValues.length; check++) {
+								totalSum += totalValues[check];
+							}
+						}
+						output.push("<tr><td>" + lines[i].split(",").join("</td><td>") + "</td></tr>");
+					}
+					if (totalSum === 100) {
+						// output = "<table id = 'data'>" + output.join("") + "</table>";
+						document.getElementById("display").style.display = "none";
+      					// document.getElementById('table').innerHTML = (output);
+      					// document.getElementById("table").style.display = "block";
+					} else {
+						document.getElementById("display").style.display = "block";
+						// document.getElementById("table").style.display = "none";
+					}
+				}
+				reader.readAsText(f);
+			}
+		}		
+		document.getElementById('myCSV').addEventListener('change', readFile);
+	</script>
+</html>

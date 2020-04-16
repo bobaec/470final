@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<style>
+		#display {
+			display: none;
+		}
+	</style>
+	<link rel='stylesheet' href='/stylesheets/style.css' />
+</head>
+<title>Logged in</title>
+<body>
+	<h1>Hello</h1>
+	<form action = "/saveCSV" method = "post">
+		<label for = "myCSV">Select a CSV:</label>
+		<input type= "file" id = "myCSV" name = "myCSV" accept=".csv" required><br>
+		<input type = "submit" value = "Submit">
+	</form>
+	<br><br>
+	<div id = 'display'>Please enter a csv that sums to 100</div>
+	<div id = "table"></div> 
+	<form action = "/logout" method = "post">
+		<center><button type = "submit" id = "logout">Logout</button></center>
+	</form>
+</body>
+</html>
